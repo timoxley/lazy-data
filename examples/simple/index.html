@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../../build/build.css" >
+  </head>
+  <body>
+    <script src="../../build/build.js" ></script>
+    <script>
+      var LazyData = require('lazy-data')
+      var MockRemote = {
+        userDB: {
+          1: {
+            name: 'Tim'
+          },
+          2: {
+            name: 'Dave'
+          }
+        },
+        get: function(id, done) {
+          setTimeout(function() {
+            done(null, this.data[id])
+          }.bind(this))
+        }
+      }
+
+      var user1Data = {
+        id: 1
+      }
+      var user2Data = {
+        id: 2
+      }
+
+      var UserData = LazyData()
+      .requires('id')
+      .attr('name', function() {
+        MockRemote.get(this.id, function(err, user) {
+          done(err, user.name)
+        })
+      })
+      .end()
+
+      var user1 = UserData(user1Data).load('name', function(err, name) {
+        console.log('user1.name', arguments)
+      })
+      UserData(user2Data).load(function(err, user2) {
+        console.log('user2', arguments)
+      })
+
+    </script>
+  </body>
+</html>
+
+

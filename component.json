@@ -1,0 +1,17 @@
+{
+  "name": "lazy-data",
+  "repo": "timoxley/lazy-data",
+  "description": "Populate an object's properties lazily, from multiple sources.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/inherit": "*"
+  },
+  "development": {
+    "timoxley/assert": "*"
+  },
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}
